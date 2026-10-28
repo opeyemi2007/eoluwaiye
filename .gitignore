@@ -1,0 +1,5 @@
+node_modules
+dist
+.env.local
+# local video previews only: host videos externally and set VITE_MEDIA_BASE
+public/media/

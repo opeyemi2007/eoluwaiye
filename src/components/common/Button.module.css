@@ -1,0 +1,8 @@
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:var(--tap);padding:.75rem 1.5rem;border:var(--border);border-radius:var(--radius-pill);font:700 var(--step-0)/1 var(--font-body);text-decoration:none;cursor:pointer;transition:transform var(--dur) var(--ease),background var(--dur),color var(--dur)}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--red);color:var(--on-red);border-color:var(--red)}
+.primary:hover{background:var(--ink);border-color:var(--ink)}
+.secondary{background:transparent;color:var(--ink)}
+.secondary:hover{background:var(--ink);color:var(--cream)}
+.ghost{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:4px}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}

@@ -1,0 +1,9 @@
+export type Approval='draft'|'approved'
+export type ServiceSlug='social-media-management'|'virtual-assistant'|'video-editing'|'ugc'|'graphics'
+export type MediaType='video'|'image'|'carousel'|'screenshot'
+export interface Service{slug:ServiceSlug;number:string;name:string;oneLine:string;promise:string;whatIDo:string[];status:'live'|'coming-soon'|'hidden';metaDescription:string}
+export interface Project{id:string;title:string;services:ServiceSlug[];attribution:string;mediaType:MediaType;mediaUrl:string;thumbnail:string;alt:string;caption:string;description?:string;challenge?:string;whatIDid?:string;result?:string;approval:Approval;permission:boolean;featured?:boolean}
+export interface ResultItem{id:string;label:string;value:string;context:string;attribution?:string;dateRange?:string;verified:boolean;permission:boolean;visible:boolean;countTo?:number;prefix?:string;suffix?:string}
+export interface Testimonial{id:string;quote:string;name:string;role:string;brand:string;image?:string;link?:string;service:ServiceSlug;approval:Approval}
+export interface Certification{id:string;issuer:string;title:string;year?:string;file?:string;verified:boolean}
+export interface NavItem{label:string;to:string;kind:'section'|'route'}

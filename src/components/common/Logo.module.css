@@ -1,0 +1,5 @@
+.logo{display:inline-flex;align-items:center;vertical-align:middle}
+.logo img{height:100%;width:auto}
+.light{display:none}
+:global(.on-red) .dark{display:none}
+:global(.on-red) .light{display:block}

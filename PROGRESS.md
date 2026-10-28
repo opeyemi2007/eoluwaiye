@@ -1,0 +1,11 @@
+# Progress
+- [x] Phase 1: setup, tokens, types, data layer, Logo, Button, routing, SEO hook
+- [x] Phase 2: staged intro, hero, menu overlay (build-checked only)
+- [x] Phase 3: results, jump-to, service cards, testimonials (hidden until 2+ approved), how I work, about, what I do, newsletter+contact (honest unconfigured), footer. Build-checked only
+- [x] Phase 4: service template, 5 routes, gallery, lightbox, coming-soon handling, menu focus trap. Build-checked only
+- [x] Phase 5: api/contact (Resend), api/subscribe (MailerLite), analytics, privacy draft, robots/sitemap, README. API handlers tested with mocked providers only; no live provider tested
+- [x] Phase 6: browser QA (Chromium 360/390/768/1024/1440), axe scans, fixes. Not tested: real devices, Safari/Firefox, screen readers, live providers, media lightbox, Lighthouse
+- [x] Polish pass: distinct service-card artwork, equal card heights, mobile hero chips, mobile How I Work line. QA re-run: 43/43, axe clean
+- [x] Client revision pass applied and verified (see README). Open: social/CV/booking URLs, live providers, real devices, hosted videos
+- [x] Refinement round: wordmark in intro/footer, ESTHER uppercase, cream #F6F0E4, UGC card photo, @petitefave__ugc, social icons, newsletter copy/alignment, footer + centred copyright, smaller CTA + brand logos. 57/57 refinement + 43/43 regression checks, axe clean
+- [ ] Waiting on: Classic Skincare + Mamarazzi logos, revised About bio + photo, verified TikTok/Instagram/WhatsApp/LinkedIn URLs

@@ -1,0 +1,14 @@
+.overlay{position:fixed;inset:0;z-index:80;background:var(--ink);color:var(--cream);padding:1.25rem var(--gutter);overflow-y:auto}
+.head{display:flex;justify-content:space-between;align-items:center;min-height:var(--tap)}
+.head :global(b){color:var(--cream)}
+.close,.btn{display:inline-flex;align-items:center;gap:.4rem;min-height:var(--tap);padding:0 1.1rem;border-radius:var(--radius-pill);font:700 var(--step-0)/1 var(--font-body);cursor:pointer}
+.close{background:transparent;color:inherit;border:2px solid var(--cream)}
+.close:focus-visible,.cols a:focus-visible,.cols button:focus-visible{outline-color:var(--white)}
+.cols{display:grid;gap:2.5rem;margin-top:2rem}
+.cols ul{list-style:none;margin:0;padding:0}
+.label{font:700 .8rem/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;opacity:.85}
+.cols a,.cols button{display:block;min-height:var(--tap);padding:.2rem 0;background:none;border:0;color:inherit;text-align:left;text-decoration:none;font:800 clamp(1.7rem,1rem + 3vw,3rem)/1.1 var(--font-display);letter-spacing:-.03em;cursor:pointer}
+.cols a:hover,.cols button:hover{color:var(--white);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:6px;text-decoration-thickness:4px}
+@media (min-width:800px){.cols{grid-template-columns:1fr 1fr}}
+.btn{position:fixed;top:1.25rem;right:var(--gutter);z-index:70;border:2px solid currentColor;background:var(--cream);color:var(--ink)}
+.btnRed{background:transparent;color:var(--cream)}
