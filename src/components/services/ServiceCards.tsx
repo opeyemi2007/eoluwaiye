@@ -3,13 +3,15 @@ import { ArrowUpRight } from 'lucide-react'
 import { services } from '../../data/services'
 import { Reveal } from '../common/Reveal'
 import styles from './ServiceCards.module.css'
+const W=(f:string)=>`/work/${f}`
+/** Editorial service art: real work in tilted, offset-shadow frames over an accent disc. */
 function Art({slug}:{slug:string}){
-  const n=(c:number)=>Array.from({length:c},(_,i)=><i key={i}/>)
-  if(slug==='social-media-management')return <span className={styles.artGrid}>{n(9)}</span>
-  if(slug==='virtual-assistant')return <span className={styles.artRows}>{n(4)}</span>
-  if(slug==='video-editing')return <span className={styles.artVideo}><i/><em><u/><u/><u/></em></span>
+  const img=(f:string,cls?:string)=><img key={f} className={cls} src={W(f)} alt="" loading="lazy"/>
   if(slug==='ugc')return <span className={styles.artEditorial}><i className={styles.disc}/><img className={styles.frameA} src="/work/ugc-lifestyle-poster.jpg" alt="" loading="lazy"/><img className={styles.frameB} src="/work/ugc-lip-demo-poster.jpg" alt="" loading="lazy"/></span>
-  return <span className={styles.artSlides}>{n(3)}</span>
+  if(slug==='social-media-management')return <span className={styles.artEditorial}><i className={styles.disc}/><span className={styles.feed}>{['gfx-zanzibar','gfx-dominican','gfx-thailand','gfx-mykonos','gfx-review-post','gfx-invitation'].map(f=>img(`${f}-s.webp`))}</span></span>
+  if(slug==='virtual-assistant')return <span className={styles.artEditorial}><i className={styles.disc}/>{img('alx-va-certificate-s.webp',styles.vaCert)}<span className={styles.tracker}><u/><u/><u/></span></span>
+  if(slug==='video-editing')return <span className={styles.artEditorial}><i className={styles.disc}/>{img('edit-fragrance-poster-s.jpg',`${styles.fr} ${styles.ve0}`)}{img('edit-greece-poster-s.jpg',`${styles.fr} ${styles.ve1}`)}<span className={styles.tl}><u/><u/><u/><u/></span></span>
+  return <span className={styles.artEditorial}><i className={styles.disc}/>{['gfx-shop-the-look','gfx-skinprep-1','gfx-ad-duo'].map((f,i)=>img(`${f}-s.webp`,`${styles.fr} ${styles['gr'+i]}`))}</span>
 }
 export function ServiceCards(){
   const live=services.filter(s=>s.status!=='hidden')

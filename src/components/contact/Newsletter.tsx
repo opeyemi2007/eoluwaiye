@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { track } from '../../lib/analytics'
-import { ENDPOINTS, isEmail, postJson, type SubmitState } from '../../lib/forms'
+import { deliver, isEmail, type SubmitState } from '../../lib/forms'
 import { Field, StatusMsg } from './Field'
 import styles from '../sections/Sections.module.css'
 export function Newsletter(){
@@ -13,7 +13,7 @@ export function Newsletter(){
     if(!isEmail(email))e2.email='Please enter a valid email address.'
     if(!f.get('consent'))e2.consent='Please tick the box to join the list.'
     setErrs(e2);if(Object.keys(e2).length||f.get('company'))return
-    setSt('sending');const r=await postJson(ENDPOINTS.newsletter,{name,email,consent:true,source:'portfolio-site'});setSt(r);if(r==='success')track('newsletter_signup')
+    setSt('sending');const r=await deliver('newsletter',{name,email,consent:true,source:'portfolio-site'});setSt(r);if(r==='success')track('newsletter_signup')
   }
   return(
     <form className={`${styles.form} ${styles.news}`} onSubmit={submit} noValidate aria-labelledby="news-h">

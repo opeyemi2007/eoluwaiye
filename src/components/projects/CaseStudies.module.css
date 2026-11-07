@@ -1,0 +1,15 @@
+.cs{padding-block:var(--space-5);border-top:var(--border)}
+.cs:first-of-type{border-top:0;padding-top:0}
+.num{font:700 .85rem/1 var(--font-body);letter-spacing:.08em;color:var(--red);margin-bottom:.6rem}
+.cs h3{font-size:clamp(1.6rem,1.1rem + 2vw,2.8rem);margin-bottom:1rem}
+.desc{font-weight:600;color:var(--muted)}
+.bullets{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.5rem;max-width:46rem}
+.bullets li{position:relative;padding-left:1.6rem}
+.bullets li::before{content:'';position:absolute;left:0;top:.7em;width:.9rem;height:3px;background:var(--red)}
+.result{display:inline-block;margin:.5rem 0 1.25rem;padding:.65rem 1rem;background:var(--red);color:var(--white);font:800 clamp(1.05rem,.9rem + .9vw,1.5rem)/1.2 var(--font-display);border-radius:var(--radius-sm);max-width:44rem}
+.label{margin:1.25rem 0 .8rem;font:700 .8rem/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.quotes{display:grid;gap:1rem;margin:1rem 0 1.25rem}
+@media (min-width:900px){.quotes{grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}}
+.q{margin:0;padding:1.25rem;background:var(--white);border:var(--border);border-radius:var(--radius-sm);box-shadow:4px 4px 0 var(--ink)}
+.q p{margin:0 0 .85rem;font:600 1.05rem/1.4 var(--font-display);max-width:none}
+.q cite{font-style:normal;font-weight:700;font-size:.9rem;color:var(--muted)}

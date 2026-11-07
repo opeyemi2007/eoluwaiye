@@ -8,9 +8,9 @@ import { Lightbox } from '../projects/Lightbox'
 import type { Project } from '../../types/content'
 import styles from './Sections.module.css'
 export function About(){
-  const [open,setOpen]=useState(false)
+  const [open,setOpen]=useState<number|null>(null)
   const certs=certifications.filter(c=>c.verified&&c.file)
-  const items:Project[]=certs.map(c=>({id:c.id,title:`${c.title}, ${c.issuer}`,services:[],attribution:c.issuer,mediaType:'image',mediaUrl:c.file!,thumbnail:c.file!,alt:c.alt,caption:`${c.title} certificate, ${c.year}`,approval:'approved',permission:true}))
+  const items:Project[]=certs.map(c=>({id:c.id,title:`${c.title}, ${c.issuer}`,services:[],attribution:'',mediaType:'image',mediaUrl:c.file!,thumbnail:c.file!,alt:c.alt,caption:'',approval:'approved',permission:true}))
   const tiktok=site.channels.find(c=>c.label==='TikTok')?.href
   const hasActions=site.cvUrl||site.bookingUrl||tiktok
   return(
@@ -31,16 +31,15 @@ export function About(){
       <div className={`container ${styles.certArea}`}>
         <h3 className={styles.certH}>Certifications</h3>
         <div className={styles.certGrid}>
-          {certs.map(c=>(
+          {certs.map((c,k)=>(
             <figure key={c.id} className={styles.certFig}>
-              <button type="button" className={styles.certBtn} onClick={()=>setOpen(true)} aria-label={`Enlarge ${c.title} certificate, ${c.issuer}, ${c.year}`}>
-                <img src={c.file} alt={c.alt} width={1280} height={720} loading="lazy"/><span className={styles.certHint} aria-hidden="true"><Maximize2 size={16}/> Enlarge</span>
+              <button type="button" className={styles.certBtn} onClick={()=>setOpen(k)} aria-label={`Enlarge ${c.title} certificate, ${c.issuer}, ${c.year}`}>
+                <img src={c.file} alt={c.alt} width={c.w} height={c.h} loading="lazy"/><span className={styles.certHint} aria-hidden="true"><Maximize2 size={16}/> Enlarge</span>
               </button>
-              <figcaption><strong>{c.title}, {c.issuer}, {c.year}</strong></figcaption>
             </figure>))}
           <p className={styles.soonNote}>More on the way.</p>
         </div>
       </div>
-      <AnimatePresence>{open&&<Lightbox items={items} index={0} onClose={()=>setOpen(false)} onIndex={()=>{}}/>}</AnimatePresence>
+      <AnimatePresence>{open!==null&&<Lightbox items={items} index={open} onClose={()=>setOpen(null)} onIndex={setOpen}/>}</AnimatePresence>
     </section>)
 }

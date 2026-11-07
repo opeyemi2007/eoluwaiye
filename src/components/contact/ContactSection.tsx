@@ -2,14 +2,14 @@ import { useState, type FormEvent } from 'react'
 import { services } from '../../data/services'
 import { site } from '../../data/site'
 import { track } from '../../lib/analytics'
-import { ENDPOINTS, isEmail, postJson, type SubmitState } from '../../lib/forms'
+import { deliver, isEmail, whatsappLink, type SubmitState } from '../../lib/forms'
 import type { ServiceSlug } from '../../types/content'
 import { Field, StatusMsg } from './Field'
 import { SocialLinks } from '../common/SocialLinks'
 import { Newsletter } from './Newsletter'
 import styles from '../sections/Sections.module.css'
 export function ContactSection({preselected}:{preselected?:ServiceSlug}){
-  const [st,setSt]=useState<SubmitState>('idle'),[errs,setErrs]=useState<Record<string,string>>({})
+  const [st,setSt]=useState<SubmitState>('idle'),[wa,setWa]=useState(''),[errs,setErrs]=useState<Record<string,string>>({})
   async function submit(e:FormEvent<HTMLFormElement>){
     e.preventDefault();const f=new FormData(e.currentTarget)
     const v={name:String(f.get('name')).trim(),email:String(f.get('email')).trim(),brand:String(f.get('brand')).trim(),services:f.getAll('services').map(String),message:String(f.get('message')).trim()}
@@ -18,7 +18,7 @@ export function ContactSection({preselected}:{preselected?:ServiceSlug}){
     if(!isEmail(v.email))e2.email='Please enter a valid email address.'
     if(v.message.length<10)e2.message='Please tell me a little about what you need.'
     setErrs(e2);if(Object.keys(e2).length||f.get('company'))return
-    setSt('sending');const r=await postJson(ENDPOINTS.contact,v);setSt(r);if(r==='success')track('contact_submit')
+    setSt('sending');setWa(`Hi Esther, I'm ${v.name}${v.brand?` (${v.brand})`:''}. ${v.services.length?`I need: ${v.services.join(', ')}. `:''}${v.message}`);const r=await deliver('contact',v);setSt(r);if(r==='success')track('contact_submit')
   }
   return(
     <section id="contact" className={styles.contact} aria-labelledby="contact-h">
@@ -41,7 +41,8 @@ export function ContactSection({preselected}:{preselected?:ServiceSlug}){
             <label key={s.slug} className={styles.consent}><input type="checkbox" name="services" value={s.name} defaultChecked={s.slug===preselected}/> {s.name}</label>))}</fieldset>
           <Field id="c-msg" label="Message" error={errs.message}><textarea id="c-msg" name="message" rows={5} aria-invalid={!!errs.message} aria-describedby={errs.message?'c-msg-err':undefined}/></Field>
           <input name="company" tabIndex={-1} autoComplete="off" className={styles.honey} aria-hidden="true"/>
-          <button className={styles.submit} disabled={st==='sending'}>Send message</button><StatusMsg state={st}/>
+          <button className={styles.submit} disabled={st==='sending'}>Send message</button>
+          <StatusMsg state={st}>{(st==='error'||st==='pending'||st==='unconfigured')&&wa&&<a className={styles.submit} href={whatsappLink(wa)} target="_blank" rel="noopener noreferrer">Send it on WhatsApp instead</a>}</StatusMsg>
         </form>
           </div>
         </div>

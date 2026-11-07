@@ -31,7 +31,7 @@ export function Lightbox({items,index,onClose,onIndex}:Props){
         {p.mediaType==='video'
           ?<video src={p.mediaUrl} poster={p.thumbnail} controls muted playsInline preload="metadata" className={styles.lbMedia}/>
           :<img src={p.mediaUrl} alt={p.alt} className={styles.lbMedia}/>}
-        <figcaption><strong>{p.attribution}</strong>: {p.caption}{p.result&&<> · {p.result}</>}</figcaption>
+        {(p.caption||p.attribution)&&<figcaption><strong>{p.attribution}</strong>: {p.caption}{p.result&&<> · {p.result}</>}</figcaption>}
       </figure>
       {n>1&&<><button className={`${styles.lbNav} ${styles.lbPrev}`} onClick={()=>onIndex((index-1+n)%n)} aria-label="Previous item"><ChevronLeft aria-hidden="true"/></button>
         <button className={`${styles.lbNav} ${styles.lbNext}`} onClick={()=>onIndex((index+1)%n)} aria-label="Next item"><ChevronRight aria-hidden="true"/></button></>}

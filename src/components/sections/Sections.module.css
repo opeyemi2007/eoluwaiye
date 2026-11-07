@@ -70,3 +70,4 @@
 .panel h3{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem);line-height:1.05;margin-bottom:.75rem}
 .panel .form,.panel .news{margin-top:0;max-width:none}.panel .news h3{margin-bottom:.75rem}
 @media (max-width:899px){.formPanel{order:-1}}
+.certGrid{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:flex-start;grid-template-columns:none}.certFig{flex:1 1 18rem;max-width:30rem}.certGrid .soonNote{align-self:center;flex:0 0 auto}

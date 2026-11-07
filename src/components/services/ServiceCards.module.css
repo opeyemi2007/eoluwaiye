@@ -62,3 +62,16 @@
 .artEditorial{inset:0 auto 0 clamp(0rem,calc(50% - 12rem),13rem);width:15rem}
 .disc{left:2.6rem}
 .disc{left:5.4rem;top:2.6rem}
+/* Editorial art for the other four services (same language as UGC) */
+.socialmediamanagement .visual .disc{background:var(--cream)}
+.feed{position:absolute;left:1.3rem;top:2rem;display:grid;grid-template-columns:repeat(3,3.9rem);gap:.3rem;padding:.3rem;background:var(--white);border:var(--border);border-radius:10px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-3deg)}
+.feed img{display:block;width:3.9rem;height:3.9rem;object-fit:cover;border-radius:4px}
+.vaCert{position:absolute;left:1.2rem;top:1.4rem;width:11.5rem;height:6.5rem;object-fit:cover;border:var(--border);border-radius:8px;box-shadow:4px 4px 0 var(--cream);transform:rotate(-4deg)}
+.tracker{position:absolute;left:5.8rem;top:6.4rem;width:8.4rem;display:grid;gap:.4rem;padding:.6rem;background:var(--white);border:var(--border);border-radius:10px;box-shadow:4px 4px 0 var(--red);transform:rotate(4deg)}
+.tracker u{display:block;height:.75rem;border:2px solid var(--ink);border-radius:3px}.tracker u:nth-child(2){background:var(--red);border-color:var(--red)}
+.fr{position:absolute;object-fit:cover;border:var(--border);border-radius:10px;background:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.ve0{left:1.4rem;top:.9rem;width:5.2rem;height:9.2rem;transform:rotate(-4deg)}.ve1{left:6rem;top:1.7rem;width:5.2rem;height:9.2rem;transform:rotate(5deg)}
+.tl{position:absolute;left:1.2rem;bottom:.6rem;width:13rem;height:1.25rem;display:flex;gap:3px;padding:3px;background:var(--ink);border-radius:5px}
+.tl u{display:block;border-radius:2px;background:var(--cream);width:30%}.tl u:nth-child(2){background:var(--red);width:22%}.tl u:nth-child(3){width:34%}.tl u:nth-child(4){background:var(--red);width:14%}
+.gr0,.gr1,.gr2{width:6.2rem;height:7.8rem}.gr0{left:1.2rem;top:2.1rem;transform:rotate(-8deg)}.gr1{left:4.6rem;top:1.2rem;transform:rotate(2deg)}.gr2{left:8rem;top:2.2rem;transform:rotate(9deg)}
+.tl{width:10.6rem}

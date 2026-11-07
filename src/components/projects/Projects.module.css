@@ -13,3 +13,8 @@
 .thumb{position:relative}.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:3.2rem;height:3.2rem;border-radius:50%;background:var(--red);color:var(--white);display:grid;place-items:center;border:2px solid var(--white)}
 .thumb img[data-land='1']{object-fit:contain;background:var(--ink)}
 .thumb video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;pointer-events:none;background:var(--ink)}
+.thumb img[data-land='1']{aspect-ratio:4/3;object-fit:contain;background:var(--white)}
+/* UGC-card look for every gallery thumbnail: rounded, offset shadow, slight tilt that straightens on hover */
+.thumb{border-radius:10px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-1.2deg);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.grid li:nth-child(even) .thumb{transform:rotate(1deg)}
+.thumb:hover,.thumb:focus-visible{transform:rotate(0) translateY(-4px);box-shadow:6px 6px 0 var(--ink)}
