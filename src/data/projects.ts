@@ -1,12 +1,11 @@
 import type { Project } from '../types/content'
-const base=((import.meta.env.VITE_MEDIA_BASE as string|undefined)||'/media').replace(/\/$/,'')
-const img=(id:string)=>({mediaUrl:`/work/${id}.webp`,thumbnail:`/work/${id}-t.webp`,mediaType:'image' as const})
-const vid=(id:string)=>({mediaUrl:`${base}/${id}.mp4`,thumbnail:`/work/${id}-poster.jpg`,mediaType:'video' as const})
-/** Cloudinary-hosted video: use the full HTTPS URL as-is. The poster is a still frame 1.5s in that Cloudinary generates by inserting a transformation before the version segment. */
-const cloudPoster=(url:string)=>url.replace('/video/upload/','/video/upload/so_1.5,w_720,c_limit,q_auto/').replace(/\.[a-z0-9]+$/i,'.jpg')
-const cloud=(url:string)=>({mediaUrl:url.replace(/\.mov$/i,'.mp4'),thumbnail:cloudPoster(url),mediaType:'video' as const})
+import { media } from '../lib/media'
+const img=(id:string)=>({mediaUrl:media(`/work/${id}.webp`),thumbnail:media(`/work/${id}-t.webp`),mediaType:'image' as const})
+/** Cloudinary-hosted video: use the full HTTPS URL as-is. The poster is a still frame (1.5s in by default; pass e.g. '40p' for 40% of the way through, or '6' for 6 seconds) that Cloudinary generates by inserting a transformation before the version segment. */
+const cloudPoster=(url:string,at='1.5')=>url.replace('/video/upload/',`/video/upload/so_${at},w_720,c_limit,q_auto/`).replace(/\.[a-z0-9]+$/i,'.jpg')
+const cloud=(url:string,at?:string)=>({mediaUrl:url.replace(/\.mov$/i,'.mp4'),thumbnail:cloudPoster(url,at),mediaType:'video' as const})
 const CL='https://res.cloudinary.com/nrldqjoh/video/upload'
-const clip=(id:string)=>({mediaUrl:`/work/video/${id}.mp4`,thumbnail:`/work/${id}-poster.jpg`,mediaType:'video' as const}) // small compressed clips shipped with the site
+const clip=(id:string)=>({mediaUrl:media(`/work/video/${id}.mp4`),thumbnail:media(`/work/${id}-poster.jpg`),mediaType:'video' as const}) // small compressed clips shipped with the site
 const ok={approval:'approved' as const,permission:true}
 const pc=['graphics'] as Project['services']
 /** Supplied by Esther. Attributions stay neutral where the client isn't visible in the work. Add result/featured only when verified. */
@@ -19,11 +18,11 @@ export const projects:Project[]=[
   {id:'gfx-invitation',title:'Event invitation',services:['graphics'],attribution:'Classic Makeup USA',...img('gfx-invitation'),alt:'Cream invitation card with a red wax seal on a dark red background',caption:'Wax-sealed invitation graphic',...ok},
   {id:'gfx-ad-duo',title:'Two-product promo',services:['graphics'],attribution:'Classic Makeup USA',...img('gfx-ad-duo'),alt:'Promo graphic with a folding phone on a blue panel above a sunscreen tube on a cream panel, both with prices',caption:'Two-product promo with pricing',role:'case',...ok},
   {id:'gfx-ad-sunscreen',title:'Sunscreen promo',services:['graphics'],attribution:'Classic Makeup USA',...img('gfx-ad-sunscreen'),alt:'Promo graphic with a smiling woman holding a sunscreen tube, with price and product details',caption:'Product promo with photo and pricing',role:'case',...ok},
-  {id:'ugc-lip-demo',title:'Lip product demo',services:['ugc'],attribution:'UGC',...vid('ugc-lip-demo'),alt:'Hands holding lip products with on-screen callouts',caption:'Vertical product demo with on-screen callouts',...ok},
+  {id:'ugc-lip-demo',title:'Lip product demo',services:['ugc'],attribution:'UGC',...clip('ugc-lip-demo'),alt:'Hands holding lip products with on-screen callouts',caption:'Vertical product demo with on-screen callouts',...ok},
   {id:'ugc-lifestyle',title:'Lifestyle UGC',services:['ugc'],attribution:'UGC',...cloud(`${CL}/v1793149323/Img_8339.mp4`),alt:'Woman in a white robe at home, with captions over the video',caption:'Lifestyle video with captions',...ok},
-  {id:'edit-fragrance',title:'Fragrance talking-head edit',services:['video-editing'],attribution:'Video edit',...cloud(`${CL}/v1793149443/Img_3394.mp4`),alt:'Woman talking to camera holding a fragrance bottle, with animated word captions',caption:'Talking-head edit with animated word captions',...ok},
+  {id:'edit-fragrance',title:'Fragrance talking-head edit',services:['video-editing'],attribution:'Video edit',...cloud(`${CL}/v1793149443/Img_3394.mp4`,'30p'),alt:'Woman talking to camera holding a fragrance bottle, with animated word captions',caption:'Talking-head edit with animated word captions',...ok},
   {id:'edit-greece',title:'Greece travel reel',services:['video-editing'],attribution:'Video edit',...cloud(`${CL}/v1793149395/Img_5716.mp4`),alt:'Travel reel with a pool, a title reading Greece behind the people walking, and a wine cellar',caption:'Travel reel with a text-behind-subject effect',...ok},
-  {id:'edit-veron',title:'Brand promo',services:['video-editing'],attribution:'Veron Beauty and Lifestyle',...vid('edit-veron'),alt:'Landscape promo with a woman seated beside the Veron title, then salon scenes',caption:'Landscape promo edit',...ok},
+  {id:'ugc-veron',title:'Veron',services:['ugc'],attribution:'Veron Beauty and Lifestyle',...clip('ugc-veron'),alt:'Landscape promo with a woman seated beside the Veron title, then salon scenes',caption:'Veron promo',...ok},
   // Added from Cloudinary. Temporary titles from filenames: edit title/alt/caption/attribution below. Approval follows Esther's blanket client permission; set permission:false to hide any item.
   {id:'ugc-img-6699',title:'UGC video 6699',services:['ugc'],attribution:'UGC',...cloud(`${CL}/v1793149343/Img_6699.mp4`),alt:'Preview frame of UGC video 6699',caption:'UGC video',...ok},
   {id:'ugc-img-8600',title:'UGC video 8600',services:['ugc'],attribution:'UGC',...cloud(`${CL}/v1793149312/Img_8600.mp4`),alt:'Preview frame of UGC video 8600',caption:'UGC video',...ok},
@@ -45,7 +44,7 @@ export const projects:Project[]=[
   {id:'fitt-top-reels',title:'Top Reels',services:['social-media-management'],attribution:'Fitt.Ola',...img('fitt-top-reels'),alt:'Three Fitt.Ola Reels with 41.6K, 31.1K and 18.9K views',caption:'Top Reels: 41.6K, 31.1K and 18.9K views',role:'sample',...ok},
   {id:'abi-tracker',title:'Collaboration tracker',services:['virtual-assistant'],attribution:'Abiscentnstuff',...img('abi-tracker'),alt:'Brand collaboration tracker spreadsheet listing brands, platforms, campaign types, deliverables and status',caption:'Collaboration tracker',role:'sample',...ok},
   // ---- Media update: videos (Cloudinary; .mov is delivered as .mp4)
-  {id:'vicora-interview',title:'Vicora interview',services:['video-editing'],attribution:'Freelance',...cloud(`${CL}/v1793662020/Vicora_S_Interview.mp4`),alt:'Preview frame of the Vicora interview video',caption:'Interview edit',role:'case',...ok},
+  {id:'vicora-interview',title:'Vicora interview',services:['video-editing'],attribution:'Freelance',...cloud(`${CL}/v1793662020/Vicora_S_Interview.mp4`,'40p'),alt:'Preview frame of the Vicora interview video',caption:'Interview edit',role:'case',...ok},
   {id:'nysc-day-1',title:'Classic at NYSC, day 1',services:['video-editing'],attribution:'Classic Makeup USA',...cloud(`${CL}/v1793661115/DAY_1_AT_NYSC.mov`),alt:'Preview frame of the Classic at NYSC, day 1 video',caption:'Classic at NYSC, day 1',role:'case',...ok},
   {id:'lmuf-18th',title:'The 18th LMUF live demo',services:['video-editing'],attribution:'Classic Makeup USA',...cloud(`${CL}/v1793661040/The_18th_LMUF.mov`),alt:'Preview frame of the The 18th LMUF live demo video',caption:'The 18th LMUF live demo',role:'case',...ok},
   {id:'valentino-pr',title:'Valentino Beauty PR video',services:['video-editing'],attribution:'Abiscentnstuff',...cloud(`${CL}/v1793661122/VALENTINO_PR.mov`),alt:'Preview frame of the Valentino Beauty PR video video',caption:'Valentino Beauty, gifted collaboration',role:'case',...ok},

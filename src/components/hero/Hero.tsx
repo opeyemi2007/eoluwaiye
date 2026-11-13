@@ -1,12 +1,17 @@
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { media } from '../../lib/media'
 import { Logo } from '../common/Logo'
 import { Button } from '../common/Button'
 import { FloatItem } from './FloatItem'
 import styles from './Hero.module.css'
+/** Phone screen: a real vertical edit. The still always shows; a short muted loop (a 6s clip Cloudinary cuts from the original URL) fades in on top when it can play. */
+const PHONE_POSTER=media('/work/edit-greece-poster-s.jpg')
+const PHONE_CLIP='https://res.cloudinary.com/nrldqjoh/video/upload/so_2,du_6,w_360,q_auto/v1793149395/Img_5716.mp4'
 interface Props{active:boolean;onContinue:()=>void;onWork:()=>void;onContact:()=>void}
 export function Hero({active,onContinue,onWork,onContact}:Props){
-  const reduce=useReducedMotion()
+  const reduce=useReducedMotion(),[clip,setClip]=useState(false)
   const rise=(d:number)=>reduce?{}:{initial:{y:24,opacity:0},animate:active?{y:0,opacity:1}:{},transition:{type:'spring' as const,stiffness:140,damping:20,delay:.5+d}}
   return(
     <motion.section className={styles.hero} aria-label="Welcome" initial={false}
@@ -26,7 +31,11 @@ export function Hero({active,onContinue,onWork,onContact}:Props){
         </div>
         <div className={styles.floats} aria-hidden="true">
           <FloatItem active={active} dx={10} dy={-16} dur={7} className={styles.phone} style={{left:'8%',top:'6%'}}>
-            <div className={styles.screen}><span className={styles.play}/><span className={styles.cap}>hook in 3s</span></div>
+            <div className={styles.screen}>
+              <img className={styles.screenImg} src={PHONE_POSTER} alt="" width={320} height={569}/>
+              {active&&!reduce&&<video className={`${styles.screenVid} ${clip?styles.on:''}`} src={PHONE_CLIP} muted loop playsInline preload="metadata"
+                ref={el=>{if(el){el.muted=true;el.play().catch(()=>{})}}} onCanPlay={()=>setClip(true)} onError={()=>setClip(false)}/>}
+            </div>
           </FloatItem>
           <FloatItem active={active} dx={-12} dy={12} dur={8} delay={.6} className={styles.timeline} style={{left:'34%',top:'48%'}}>
             <i style={{width:'70%'}}/><i style={{width:'45%',marginLeft:'12%'}}/><i style={{width:'58%',marginLeft:'28%'}}/><b className={styles.playhead}/>

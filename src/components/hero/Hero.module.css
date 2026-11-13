@@ -27,3 +27,6 @@
   .copy{order:2}.floats{order:1;height:min(70vh,640px)}
 }
 @media (max-width:899px){.canva{left:36%!important;top:4%!important}.capcut{left:66%!important;top:4%!important}}
+.screen{background:var(--ink);overflow:hidden}
+.screenImg,.screenVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.screenVid{opacity:0;transition:opacity .5s ease}.screenVid.on{opacity:1}

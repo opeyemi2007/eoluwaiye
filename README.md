@@ -58,3 +58,10 @@ The contact form and "Stay in the loop" now deliver in this order: (1) the site'
 WhatsApp uses the number from her CV (`VITE_WHATSAPP_NUMBER`, default 2348168712261). Set `VITE_EMAIL_FALLBACK=off` to disable FormSubmit once Resend works.
 ## Missing images or "Image not found" boxes
 Run `node scripts/check-media.mjs`. It lists every file the site refers to that `/public` does not contain; copy those from the update zips into the same folders.
+
+## Where the images live now (latest)
+All images, logos and small clips are in **src/assets/** (`work`, `clients`, `brand`) and are bundled by Vite, so they travel with the code in `src`. Only the CV, favicon and share image stay in `public/`. Reference them in data files with `media('/work/<file>')`. Run `node scripts/check-media.mjs` to list anything missing. While running `npm run dev`, a red notice at the bottom of the page names missing files.
+## Optional: Web3Forms (no activation click)
+Get a free key at https://web3forms.com (enter eoluwaiye@gmail.com; the key is emailed), set `VITE_WEB3FORMS_KEY` in `.env.local` / Vercel, and the forms use it before FormSubmit. If a service fails, the form shows what it said, plus WhatsApp and "Email me instead" buttons.
+## Video thumbnails
+`cloud(url,'40p')` picks the frame 40% into the video (or `'6'` for 6 seconds). Default is 1.5 seconds. Used for Vicora ('40p') and the fragrance edit ('30p').

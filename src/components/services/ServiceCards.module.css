@@ -75,3 +75,5 @@
 .tl u{display:block;border-radius:2px;background:var(--cream);width:30%}.tl u:nth-child(2){background:var(--red);width:22%}.tl u:nth-child(3){width:34%}.tl u:nth-child(4){background:var(--red);width:14%}
 .gr0,.gr1,.gr2{width:6.2rem;height:7.8rem}.gr0{left:1.2rem;top:2.1rem;transform:rotate(-8deg)}.gr1{left:4.6rem;top:1.2rem;transform:rotate(2deg)}.gr2{left:8rem;top:2.2rem;transform:rotate(9deg)}
 .tl{width:10.6rem}
+/* VA card: her real calendar inside the frame (replaces the three bars) */
+img.tracker{display:block;padding:0;gap:0;width:9.6rem;height:5.4rem;left:5.4rem;top:6.1rem;object-fit:cover;object-position:left top;background:var(--ink);border:var(--border);border-radius:10px;box-shadow:4px 4px 0 var(--red);transform:rotate(4deg)}

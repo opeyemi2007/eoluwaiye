@@ -2,14 +2,14 @@ import { useState, type FormEvent } from 'react'
 import { services } from '../../data/services'
 import { site } from '../../data/site'
 import { track } from '../../lib/analytics'
-import { deliver, isEmail, whatsappLink, type SubmitState } from '../../lib/forms'
+import { deliver, isEmail, mailtoLink, whatsappLink, type SubmitState } from '../../lib/forms'
 import type { ServiceSlug } from '../../types/content'
 import { Field, StatusMsg } from './Field'
 import { SocialLinks } from '../common/SocialLinks'
 import { Newsletter } from './Newsletter'
 import styles from '../sections/Sections.module.css'
 export function ContactSection({preselected}:{preselected?:ServiceSlug}){
-  const [st,setSt]=useState<SubmitState>('idle'),[wa,setWa]=useState(''),[errs,setErrs]=useState<Record<string,string>>({})
+  const [st,setSt]=useState<SubmitState>('idle'),[detail,setDetail]=useState<string|undefined>(),[wa,setWa]=useState(''),[errs,setErrs]=useState<Record<string,string>>({})
   async function submit(e:FormEvent<HTMLFormElement>){
     e.preventDefault();const f=new FormData(e.currentTarget)
     const v={name:String(f.get('name')).trim(),email:String(f.get('email')).trim(),brand:String(f.get('brand')).trim(),services:f.getAll('services').map(String),message:String(f.get('message')).trim()}
@@ -18,7 +18,7 @@ export function ContactSection({preselected}:{preselected?:ServiceSlug}){
     if(!isEmail(v.email))e2.email='Please enter a valid email address.'
     if(v.message.length<10)e2.message='Please tell me a little about what you need.'
     setErrs(e2);if(Object.keys(e2).length||f.get('company'))return
-    setSt('sending');setWa(`Hi Esther, I'm ${v.name}${v.brand?` (${v.brand})`:''}. ${v.services.length?`I need: ${v.services.join(', ')}. `:''}${v.message}`);const r=await deliver('contact',v);setSt(r);if(r==='success')track('contact_submit')
+    setSt('sending');setWa(`Hi Esther, I'm ${v.name}${v.brand?` (${v.brand})`:''}. ${v.services.length?`I need: ${v.services.join(', ')}. `:''}${v.message}`);const r=await deliver('contact',v);setSt(r.state);setDetail(r.detail);if(r.state==='success')track('contact_submit')
   }
   return(
     <section id="contact" className={styles.contact} aria-labelledby="contact-h">
@@ -30,7 +30,6 @@ export function ContactSection({preselected}:{preselected?:ServiceSlug}){
           {site.bookingUrl&&<a className={styles.submit} href={site.bookingUrl} onClick={()=>window.dispatchEvent(new CustomEvent('analytics',{detail:{event:'book_call_click'}}))}>Book a call</a>}
         </header>
         <div className={styles.pair}>
-          <div className={styles.panel}><Newsletter/></div>
           <div className={`${styles.panel} ${styles.formPanel}`}>
             <h3 id="contact-form-h">Send a message</h3>
         <form className={styles.form} onSubmit={submit} noValidate aria-label="Contact form" key={preselected}>
@@ -42,9 +41,12 @@ export function ContactSection({preselected}:{preselected?:ServiceSlug}){
           <Field id="c-msg" label="Message" error={errs.message}><textarea id="c-msg" name="message" rows={5} aria-invalid={!!errs.message} aria-describedby={errs.message?'c-msg-err':undefined}/></Field>
           <input name="company" tabIndex={-1} autoComplete="off" className={styles.honey} aria-hidden="true"/>
           <button className={styles.submit} disabled={st==='sending'}>Send message</button>
-          <StatusMsg state={st}>{(st==='error'||st==='pending'||st==='unconfigured')&&wa&&<a className={styles.submit} href={whatsappLink(wa)} target="_blank" rel="noopener noreferrer">Send it on WhatsApp instead</a>}</StatusMsg>
+          <StatusMsg state={st} detail={detail}>{(st==='error'||st==='pending'||st==='unconfigured')&&wa&&<div className={styles.altSend}>
+            <a className={styles.submit} href={whatsappLink(wa)} target="_blank" rel="noopener noreferrer">Send it on WhatsApp instead</a>
+            <a className={styles.linkBtn} href={mailtoLink('Website enquiry',wa)}>Email me instead</a></div>}</StatusMsg>
         </form>
           </div>
+          <div className={styles.panel}><Newsletter/></div>
         </div>
       </div>
     </section>)

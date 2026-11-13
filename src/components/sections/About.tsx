@@ -4,6 +4,7 @@ import { Download, ExternalLink, CalendarDays, Maximize2 } from 'lucide-react'
 import { track } from '../../lib/analytics'
 import { site, certifications } from '../../data/site'
 import { Reveal } from '../common/Reveal'
+import { media } from '../../lib/media'
 import { Lightbox } from '../projects/Lightbox'
 import type { Project } from '../../types/content'
 import styles from './Sections.module.css'
@@ -16,7 +17,7 @@ export function About(){
   return(
     <section id="about" className={styles.about} aria-labelledby="about-h">
       <div className={`container ${styles.aboutGrid}`}>
-        <div className={styles.photo}><img src="/work/esther-portrait.webp" width={1200} height={1522} loading="lazy" alt="Portrait of Esther in a pink tailored outfit, standing in profile against a warm tan backdrop"/></div>
+        <div className={styles.photo}><img src={media('/work/esther-portrait.webp')} width={1200} height={1522} loading="lazy" alt="Portrait of Esther in a pink tailored outfit, standing in profile against a warm tan backdrop"/></div>
         <Reveal>
           <h2 id="about-h" className={styles.h2}>About Esther</h2>
           {site.bio.map(p=><p key={p.slice(0,24)}>{p}</p>)}

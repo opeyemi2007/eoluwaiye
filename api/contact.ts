@@ -1,4 +1,6 @@
 // Vercel serverless function. Delivers enquiries via Resend. Secrets stay in server env vars.
+// Self-contained: no @types/node needed for this file.
+declare const process:{env:Record<string,string|undefined>}
 const json=(b:unknown,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{'Content-Type':'application/json'}})
 const EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const esc=(s:string)=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]!)
@@ -18,4 +20,10 @@ export async function POST(request:Request){
         html:`<p><b>Name:</b> ${esc(name)}</p><p><b>Email:</b> ${esc(from)}</p><p><b>Brand:</b> ${esc(brand||'-')}</p><p><b>Needs:</b> ${esc(services.join(', ')||'-')}</p><p>${esc(message).replace(/\n/g,'<br>')}</p>`})})
     return r.ok?json({ok:true}):json({ok:false,error:'Delivery failed'},502)
   }catch{return json({ok:false,error:'Delivery failed'},502)}
+}
+
+/** Open /api/contact in a browser to check setup: lists which server variables are missing (names only). */
+export async function GET(){
+  const e=process.env,missing=['RESEND_API_KEY','CONTACT_TO_EMAIL','CONTACT_FROM_EMAIL'].filter(k=>!e[k])
+  return json({ok:true,configured:missing.length===0,missing})
 }

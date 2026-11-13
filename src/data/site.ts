@@ -1,3 +1,4 @@
+import { media } from '../lib/media'
 const env=import.meta.env
 /** Everything here is editable. Empty/undefined means the related UI is hidden, never faked. */
 export const site={
@@ -25,5 +26,5 @@ export const site={
 }
 /** Certificate file supplied by Esther (issue date on the certificate: 14 March 2025). */
 export const certifications=[
-  {id:'alx-va',issuer:'ALX Africa',title:'Virtual Assistant',year:'2025',w:1280,h:720,file:'/work/alx-va-certificate.png',alt:'ALX Africa Virtual Assistant certificate of achievement issued to Favour Oluwaiye, March 2025, with two signatures and a verification QR code',verified:true},
-  {id:'ai-fluency',issuer:'Anthropic',title:'AI Fluency: Framework & Foundations',year:'2026',w:1650,h:1275,file:'/work/ai-fluency-certificate.webp',alt:'Anthropic certificate of completion for AI Fluency: Framework and Foundations, awarded to Favour Oluwaiye',verified:true}]
+  {id:'alx-va',issuer:'ALX Africa',title:'Virtual Assistant',year:'2025',w:1280,h:720,file:media('/work/alx-va-certificate.png'),alt:'ALX Africa Virtual Assistant certificate of achievement issued to Favour Oluwaiye, March 2025, with two signatures and a verification QR code',verified:true},
+  {id:'ai-fluency',issuer:'Anthropic',title:'AI Fluency: Framework & Foundations',year:'2026',w:1650,h:1275,file:media('/work/ai-fluency-certificate.webp'),alt:'Anthropic certificate of completion for AI Fluency: Framework and Foundations, awarded to Favour Oluwaiye',verified:true}]

@@ -71,3 +71,5 @@
 .panel .form,.panel .news{margin-top:0;max-width:none}.panel .news h3{margin-bottom:.75rem}
 @media (max-width:899px){.formPanel{order:-1}}
 .certGrid{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:flex-start;grid-template-columns:none}.certFig{flex:1 1 18rem;max-width:30rem}.certGrid .soonNote{align-self:center;flex:0 0 auto}
+.altSend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.75rem}
+.panel h3,.panel .news h3{margin-top:0}.panel>h3+form{margin-top:0}

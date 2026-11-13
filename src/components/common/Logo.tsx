@@ -1,6 +1,7 @@
 import styles from './Logo.module.css'
+import { media } from '../../lib/media'
 const RATIO={wordmark:680/144,lettermark:364/174}
-const SRC={wordmark:{dark:'/brand/wordmark-dark.png',light:'/brand/wordmark-light.png'},lettermark:{dark:'/brand/eo-dark.png',light:'/brand/eo-light.png'}}
+const SRC={wordmark:{dark:media('/brand/wordmark-dark.png'),light:media('/brand/wordmark-light.png')},lettermark:{dark:media('/brand/eo-dark.png'),light:media('/brand/eo-light.png')}}
 /** Wordmark ("eoluwaiye.") is for the intro and footer only. The lettermark ("eo.") is used everywhere else. Light art shows automatically on .on-red backgrounds. */
 export function Logo({variant='lettermark',height}:{variant?:'wordmark'|'lettermark';height?:number}){
   const h=height??(variant==='wordmark'?30:36),w=Math.round(h*RATIO[variant])
