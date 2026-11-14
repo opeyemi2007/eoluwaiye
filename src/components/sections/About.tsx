@@ -12,8 +12,8 @@ export function About(){
   const [open,setOpen]=useState<number|null>(null)
   const certs=certifications.filter(c=>c.verified&&c.file)
   const items:Project[]=certs.map(c=>({id:c.id,title:`${c.title}, ${c.issuer}`,services:[],attribution:'',mediaType:'image',mediaUrl:c.file!,thumbnail:c.file!,alt:c.alt,caption:'',approval:'approved',permission:true}))
-  const tiktok=site.channels.find(c=>c.label==='TikTok')?.href
-  const hasActions=site.cvUrl||site.bookingUrl||tiktok
+  const instagram=site.channels.find(c=>c.label==='Instagram')?.href
+  const hasActions=site.cvUrl||site.bookingUrl||instagram
   return(
     <section id="about" className={styles.about} aria-labelledby="about-h">
       <div className={`container ${styles.aboutGrid}`}>
@@ -25,7 +25,7 @@ export function About(){
           {hasActions&&<div className={styles.actions}>
             {site.cvUrl&&<a className={styles.linkBtn} href={site.cvUrl} download={site.cvFileName} onClick={()=>track('cv_download')}><Download size={18} aria-hidden="true"/> Download my CV</a>}
             {site.bookingUrl&&<a className={styles.linkBtn} href={site.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={()=>track('book_call_click')}><CalendarDays size={18} aria-hidden="true"/> Book a call</a>}
-            {tiktok&&<a className={styles.linkBtn} href={tiktok} target="_blank" rel="noopener noreferrer"><ExternalLink size={18} aria-hidden="true"/> Looking for UGC? See Petitefave</a>}
+            {instagram&&<a className={styles.linkBtn} href={"https://www.instagram.com/petitefave/"} target="_blank" rel="noopener noreferrer"><ExternalLink size={18} aria-hidden="true"/> Looking for UGC? See Petitefave</a>}
           </div>}
         </Reveal>
       </div>

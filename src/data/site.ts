@@ -12,7 +12,7 @@ export const site={
   channels:[
     {label:'Email',value:'eoluwaiye@gmail.com',href:'mailto:eoluwaiye@gmail.com'},
     {label:'WhatsApp',value:'Message on WhatsApp',href:(env.VITE_WHATSAPP_URL as string|undefined)||`https://wa.me/${(env.VITE_WHATSAPP_NUMBER as string|undefined)||'2348168712261'}`},
-    {label:'Instagram',value:'@petitefave',handle:true,href:(env.VITE_INSTAGRAM_URL as string|undefined)||'https://www.instagram.com/petitefave/'},
+    {label:'Instagram',value:'@eoluwaiye',handle:true,href:(env.VITE_INSTAGRAM_URL as string|undefined)||'https://www.instagram.com/eoluwaiye/'},
     {label:'TikTok',value:'@petitefave__ugc',handle:true,href:(env.VITE_TIKTOK_URL as string|undefined)||'https://www.tiktok.com/@petitefave__ugc'}, // built from the handles Esther gave; override with the env var if the profile URL differs
     {label:'LinkedIn',value:'LinkedIn',href:env.VITE_LINKEDIN_URL as string|undefined}],
   /** About copy supplied by Esther (verbatim). */
